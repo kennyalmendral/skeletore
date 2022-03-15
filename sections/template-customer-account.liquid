@@ -22,13 +22,13 @@
 
                 <div class="mt-4 flex items-start justify-between">
                   <div>
-                    <h3 class="text-sm text-gray-700">{{ order.name | link_to: order.customer_url }}</h3>
-                    <p class="mt-1 text-sm text-gray-500">{{ order.financial_status_label }}</p>
+                    <h3><a href="{{ order.customer_url }}" class="text-md text-blue-600 hover:text-blue-900 underline">{{ order.name }}</a></h3>
+                    <p class="mt-0 text-sm text-gray-500">{{ order.financial_status_label }}</p>
                   </div>
 
                   <div class="text-right">
                     <p class="text-sm font-medium text-white bg-gray-700 rounded-full px-3 py-1">{{ order.fulfillment_status_label }}</p>
-                    <p class="text-sm">{{ order.total_price | money }}</p>
+                    <p class="text-sm text-gray-700">{{ order.total_price | money }}</p>
                   </div>
                 </div>
               </div>
@@ -51,7 +51,7 @@
 
       {{ customer.default_address | format_address }}
 
-      <a href="{{ routes.account_addresses_url }}" class="text-sm text-blue-600 hover:text-blue-900 underline">View addresses</a>
+      <a href="{{ routes.account_addresses_url }}" class="text-blue-600 hover:text-blue-900 underline">View addresses</a>
     </div>
   </div>
 </div>
