@@ -1,0 +1,166 @@
+<div class="relative bg-white" x-data="{ is_mobile_menu_visible: false, is_search_bar_open: false }">
+  <div class="mx-auto px-4 sm:px-6">
+    <div class="flex justify-center items-center py-6 md:justify-start md:space-x-10">
+      <!-- STORE NAME / LOGO -->
+      <div class="flex justify-start lg:flex-1 truncate">
+        <h1 class="text-xl font-bold truncate">{{ shop.name }}</h1>
+      </div>
+
+      <div class="-mr-2 -my-2 ml-3 md:hidden">
+        <button type="button" class="bg-white p-2 inline-flex items-center justify-center focus:outline-none" x-on:click="is_mobile_menu_visible = true">
+          {% render 'icon-menu' %}
+        </button>
+      </div>
+
+      <!-- NAVIGATION MENU -->
+      <nav class="hidden md:flex space-x-10">
+        {% for link in section.settings.menu.links %}
+          {% if link.links != blank %}
+            {% assign link_handle = link.handle | replace: '-', '_' %}
+
+            <div class="relative" x-data="{ {{ link_handle }}: false }">
+              <button class="inline-flex items-center" x-on:click="{{ link_handle }} = !{{ link_handle }}">
+                {{ link.title }} {% render 'icon-dropdown' %}
+              </button>
+
+              <div 
+                class="absolute z-10 -ml-5 transform px-0 w-screen max-w-xs sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2" 
+                x-show="{{ link_handle }}" 
+                x-transition:enter="transition ease-out duration-300" 
+                x-transition:enter-start="opacity-0 translate-y-3" 
+                x-transition:enter-end="opacity-100 translate-y-0" 
+                x-transition:leave="transition ease-out duration-300" 
+                x-transition:leave-start="opacity-100 translate-y-0" 
+                x-transition:leave-end="opacity-0 translate-y-3" 
+                @click.away="{{ link_handle }} = false"
+              >
+                <div class="shadow-lg.rounded-lg.ring-1.ring-black.ring-opacity-5.bg-white.w-full border ring-black ring-opacity-5 overflow-hidden rounded-md">
+                  <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-4">
+                    {% for childLink in link.links %}
+                      <a href="{{ childLink.url }}" class="-m-3 p-1 px-2 flex items-start rounded-md hover:bg-gray-100">
+                        <div>
+                          <p class="text-gray-500 text-base">
+                            {{ childLink.title }}
+                          </p>
+                        </div>
+                      </a>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <a href="{{ link.url }}" class="text-base text-gray-500 hover:text-gray-700">{{ link.title }}</a>
+          {% endif %}
+        {% endfor %}
+      </nav>
+      
+      <!-- CART BUTTON / ACCOUNT LINKS (IF ENABLED) -->
+      <div class="hidden md:flex items-center justify-end md:flex-1 space-x-4">
+        <button type="button" class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900" x-on:click="is_search_bar_open = true">
+          {% render 'icon-search' %}
+        </button>
+
+        <a href="{{ routes.cart_url }}" class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900">
+          {% render 'icon-shopping-bag' %}
+        </a>
+
+        {% if shop.customer_accounts_enabled %}
+          {% if customer %}
+            <a href="{{ routes.account_url }}" class="text-base text-gray-500 hover:text-gray-900 ml-2">Account</a>
+            {{ 'Logout' | customer_logout_link | replace: '<a', '<a class="text-base text-gray-500 hover:text-gray-900"' }}
+          {% else %}
+            {{ 'Login' | customer_login_link | replace: '<a', '<a class="text-base text-gray-500 hover:text-gray-900"' }}
+            {{ 'Register' | customer_register_link | replace: '<a', '<a class="text-base text-gray-500 hover:text-gray-900"' }}
+          {% endif %}
+        {% endif %}
+      </div>
+
+      <!-- MOBILE MENU CONTAINER -->
+      <div class="absolute z-10 top-0 inset-x-0 p-2 transform origin-top-left md:hidden" x-show="is_mobile_menu_visible">
+        <div class="shadow-lg rounded-lg ring-1 ring-black ring-opacity-5 bg-white w-full">
+          <div class="p-5 divide-y-2 divide-gray-50">
+            <!-- MOBILE MENU HEADER TITLE AND CLOSE BUTTON -->
+            <div class="flex items-center justify-between pb-3">
+              <div>
+                <h1 class="text-lg text-gray-500">
+                  {{ section.settings.mobile_menu_title }}
+                </h1>
+              </div>
+
+              <div class="-mr-2">
+                <button type="button" class="bg-white rounded-md p-2 text-gray-500" x-on:click="is_mobile_menu_visible = false">
+                  {% render 'icon-close' %}
+                </button>
+              </div>
+            </div>
+
+            <!-- NAVIGATION LINKS FOR MOBILE MENU -->
+            <div class="pt-5">
+              <nav class="grid gap-y-4">
+                {% for link in section.settings.menu.links %}
+                  {% if link.links != blank %}
+                    {% assign mobile_link_handle = link.handle | replace: '-', '_' %}
+
+                    <div class="relative" x-data="{ {{ mobile_link_handle }}: false }">
+                      <button class="text-base text-gray-500 hover:text-gray-900 flex items-center justify-between w-full" x-on:click="{{ mobile_link_handle }} = !{{ mobile_link_handle }}">
+                        <div>{{ link.title }}</div>
+                        {% render 'icon-dropdown' %}
+                      </button>
+
+                      <div x-show="{{ mobile_link_handle }}" class="grid gap-y-4">
+                        {% for childLink in link.links %}
+                          <a href="{{ childLink.url }}" class="-m-3 p-3 mt-0 flex items-center rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-50">
+                            <span class="ml-3">{{ childLink.title }}</span>
+                          </a>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% else %}
+                    <a href="{{ link.url }}" class="text-base text-gray-500 hover:text-gray-900">{{ link.title }}</a>
+                  {% endif %}
+                {% endfor %}
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full absolute top-0 bg-white border z-50" x-show="is_search_bar_open">
+    <button type="button" class="absolute top-0 right-0 mr-5 mt-5 text-gray-500" x-on:click="is_search_bar_open = false">
+      {% render 'icon-close' %}
+    </button>
+
+    <div class="h-40 flex justify-center items-center">
+      <form action="{{ routes.search_url }}" method="get" class="flex-auto mx-6">
+        <div class="relative text-gray-500 border">
+          <input type="search" name="q" class="w-full bg-white h-10 px-3 pr-10 rounded-full text-sm focus:outline-none" placeholder="Search">
+          
+          <button type="submit" class="absolute right-0 top-0 mt-2 mr-2">{% render 'icon-search' %}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "mobile_menu_title",
+      "default": "Menu",
+      "label": "Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Heading Navigation Menu"
+    }
+  ]
+}
+{% endschema %}

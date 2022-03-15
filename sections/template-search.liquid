@@ -1,0 +1,37 @@
+<div class="container mx-auto">
+  {% paginate search.results by 10 %}
+    <h1 class="text-3xl font-medium text-center mt-8 mb-6">Search Results</h1>
+
+    <div class="flex justify-center items-center mb-3">
+      <form action="{{ routes.search_url }}" method="get" class="flex">
+        <input type="search" name="q" class="px-4 py-2 w-80 border border-r-0" placeholder="Search" value="{{ search.terms | escape }}">
+
+        <button type="submit" class="bg-gray-900 hover:bg-gray-700 text-white border-none px-4">Search</button>
+      </form>
+    </div>
+
+    {% if search.performed %}
+      {% if search.results.size > 0 %}
+        <div class="max-w-6xl mx-auto">
+          <p class="text-gray-500 text-center mt-0 mb-2">{{ search.results.size }} results for the search term <span class="font-bold">{{ search.terms | escape }}</span></p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {% for item in search.results %}
+              {% case item.object_type %}
+                {% when 'product' %} 
+                  {% render 'product-card', product: item %}      
+                {% else %}
+              {% endcase %}
+            {% endfor %}
+          </div>
+        </div>
+      {% else %}
+        <div class="text-center my-4">
+          <p>No results found for the search term "{{ search.terms | escape }}". Try using a different keyword.</p>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% render 'pagination', pagination: paginate %}
+  {% endpaginate %}
+</div>

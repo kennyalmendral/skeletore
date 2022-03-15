@@ -1,0 +1,17 @@
+/* purgecss start ignore */
+@tailwind base;
+@tailwind components;
+/* purgecss end ignore */
+@tailwind utilities;
+
+p[data-mce-fragment] {
+  margin-bottom: 1rem;
+}
+
+.h-94 {
+  height: 22rem;
+}
+
+.right-0 {
+  right: 0;
+}
