@@ -1,0 +1,38 @@
+<div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <div>
+      <h1 class="mt-6 text-center text-3xl font-bold text-gray-700">Activate account</h1>
+      <p class="mt-4 text-center">Create your password to activate your account.</p>
+    </div>
+
+    <div>
+      {% form 'activate_customer_password', class: 'space-y-4', id: 'activate-account-form' %}
+        {% if form.errors %}
+          <div class="relative border border-red-400 bg-red-100 text-red-700 px-4 py-3 mb-4" role="alert">
+            <strong class="font-bold">There are error(s) found:</strong>
+            
+            <div class="block sm:inline">{{ form.errors | default_errors }}</div>
+          </div>
+        {% endif %}
+
+        <div>
+          <label for="password" class="mb-2 block">Password</label>
+
+          <input type="password" name="customer[password]" id="password" class="relative block w-full px-3 py-2 border placeholder-gray-300 text-gray-700" autocomplete="new-password">
+        </div>
+
+        <div>
+          <label for="password-confirmation" class="mb-2 block">Confirm password</label>
+
+          <input type="password" name="customer[password_confirmation]" id="password-confirmation" class="relative block w-full px-3 py-2 border placeholder-gray-300 text-gray-700" autocomplete="new-password">
+        </div>
+
+        <div class="block md:flex">
+          <button type="submit" class="mr-2 w-full px-6 py-4 bg-gray-900 text-white hover:bg-gray-700 rounded-sm my-2">Activate account</button>
+          
+          <button type="submit" name="decline" class="ml-2 w-full px-6 py-4 text-gray-700 hover:text-gray-400 border border-gray-700 hover:border-gray-400 rounded-sm my-2">Decline invitation</button>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+</div>

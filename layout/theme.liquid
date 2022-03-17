@@ -16,6 +16,8 @@
 
   {{ content_for_header }} <!-- Header hook for plugins -->
 
+  <style>[x-cloak] { display: none !important; }</style>
+
   {{ 'application.css' | asset_url | stylesheet_tag }}
   
   <script src="https://unpkg.com/alpinejs@3.9.1/dist/cdn.min.js" defer></script>

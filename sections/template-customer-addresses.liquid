@@ -1,0 +1,325 @@
+<div class="max-w-6xl mx-auto px-4 py-12" x-data="{ is_create_address_modal_visible: false }" x-cloak>
+  <div class="flex flex-col md:flex-row items-center justify-between my-5 gap-4">
+    <h1 class="text-2xl font-bold text-gray-700">Addresses</h1>
+
+    <button type="button" class="text-white font-medium bg-gray-900 hover:bg-gray-700 px-6 py-2 rounded-sm" x-on:click="is_create_address_modal_visible = true">Create new address</button>
+    
+    <a href="{{ routes.account_url }}" class="text-blue-600 hover:text-blue-800 underline">&larr; Back to account</a>
+  </div>
+
+  <div class="h-full w-full fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto z-50" x-show="is_create_address_modal_visible">
+    <div class="relative max-w-md mx-auto bg-white border-none top-20 p-4">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-medium">Create new address</h2>
+
+        <button class="text-gray-500" x-on:click="is_create_address_modal_visible = false">{% render 'icon-close' %}</button>
+      </div>
+
+      <div class="h-96 overflow-scroll">
+        {% form 'customer_address', customer.new_address %}
+          <div class="mb-5">
+            <label for="address-fname-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">First name</label>
+
+            <input type="text" name="address[first_name]" id="address-fname-{{ form.id }}" value="{{ form.first_name }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required>
+          </div>
+
+          <div class="mb-5">
+            <label for="address-lname-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Last name</label>
+            
+            <input type="text" name="address[last_name]" id="address-lname-{{ form.id }}" value="{{ form.last_name }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required>
+          </div>
+
+          <div class="mb-5">
+            <label for="address-company-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Company</label>
+            
+            <input type="text" name="address[company]" id="address-company-{{ form.id }}" value="{{ form.company }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none">
+          </div>
+
+          <div class="mb-5">
+            <label for="address-address1-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Address 1</label>
+            
+            <input type="text" name="address[address1]" id="address-address1-{{ form.id }}" value="{{ form.address1 }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required>
+          </div>
+
+          <div class="mb-5">
+            <label for="address-address2-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Address 2</label>
+            
+            <input type="text" name="address[address2]" id="address-address2-{{ form.id }}" value="{{ form.address2 }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none">
+          </div>
+
+          <div class="mb-5">
+            <label for="address-city-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">City</label>
+            
+            <input type="text" name="address[city]" id="address-city-{{ form.id }}" value="{{ form.city }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required>
+          </div>
+
+          <div class="mb-5">
+            <label for="address-country-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Country</label>
+            
+            <select name="address[country]" id="address-country-{{ form.id }}" value="{{ form.country }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required data-country-selector data-id="{{ form.id }}">
+              {{ all_country_option_tags }}
+            </select>
+          </div>
+
+          <div class="mb-5">
+            <label for="address-province-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Province</label>
+            
+            <select name="address[province]" id="address-province-{{ form.id }}" value="{{ form.province }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required []></select>
+          </div>
+
+          <div class="mb-5">
+            <label for="address-zip-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Postal code</label>
+            
+            <input type="text" name="address[zip]" id="address-zip-{{ form.id }}" value="{{ form.zip }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required>
+          </div>
+
+          <div class="mb-4">
+            <label for="address-phone-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Phone number</label>
+            
+            <input type="tel" name="address[phone]" id="address-phone-{{ form.id }}" value="{{ form.phone }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required>
+          </div>
+
+          <div class="mb-5">
+            {{ form.set_as_default_checkbox }}
+
+            <label for="address_default_address_{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2">Set as default address</label>
+          </div>
+
+          <div class="flex-flex-row gap-2 mb-2">
+            <button type="submit" class="mb-2 block w-full font-medium text-white bg-gray-900 hover:bg-gray-700 px-4 py-3 rounded-sm">Submit</button>
+            
+            <button type="reset" class="w-full font-medium text-gray-700 hover:text-gray-400 border border-gray-700 hover:border-gray-400 px-4 py-3 rounded-sm" x-on:click="is_create_address_modal_visible = false">Cancel</button>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+
+  <div>
+    {% paginate customer.addresses by 8 %}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-12 p-4 md:p-12">
+        {% for address in customer.addresses %}
+          <div x-data="{ is_address_{{ address.id }}_modal_visible: false }">
+            <div class="relative flex flex-col border p-4">
+              {% if address == customer.default_address %}
+                <span class="text-xs text-center font-medium text-gray-400 bg-gray-200 px-4 py-2">Default</span>
+              {% endif %}
+
+              <div class="my-8 h-full text-sm">{{ address | format_address }}</div>
+
+              <div class="flex flex-row gap-2">
+                <button class="w-full text-sm text-white bg-gray-900 hover:bg-gray-700 font-medium py-2 mr-2 block rounded-sm" x-on:click="is_address_{{ address.id }}_modal_visible = true">Edit</button>
+                
+                <button class="w-full text-sm text-gray-700 hover:text-gray-400 border border-gray-700 hover:border-gray-400 font-medium py-2 rounded-sm" data-url="{{ address.url }}" data-delete-address>Delete</button>
+              </div>
+
+              <form action="{{ address.url }}" method="POST">
+                <input type="hidden" name="_method" value="delete">
+              </form>
+            </div>
+
+            <div class="h-full w-full fixed inset-0 bg-gray-600 bg-opacity-50 overflow-auto z-50" x-show="is_address_{{ address.id }}_modal_visible">
+              <div class="relative max-w-md mx-auto bg-white border-none top-20 bottom-20 p-4">
+                <div class="flex items-center justify-between mb-4">
+                  <h2 class="text-lg font-medium">Edit address</h2>
+
+                  <button class="text-gray-500" x-on:click="is_address_{{ address.id }}_modal_visible = false">{% render 'icon-close' %}</button>
+                </div>
+
+                <div class="h-96 overflow-scroll">
+                  {% form 'customer_address', address %}
+                    <div class="mb-5">
+                      <label for="address-fname-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">First name</label>
+          
+                      <input type="text" name="address[first_name]" id="address-fname-{{ form.id }}" value="{{ form.first_name }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required>
+                    </div>
+          
+                    <div class="mb-5">
+                      <label for="address-lname-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Last name</label>
+                      
+                      <input type="text" name="address[last_name]" id="address-lname-{{ form.id }}" value="{{ form.last_name }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required>
+                    </div>
+          
+                    <div class="mb-5">
+                      <label for="address-company-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Company</label>
+                      
+                      <input type="text" name="address[company]" id="address-company-{{ form.id }}" value="{{ form.company }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none">
+                    </div>
+          
+                    <div class="mb-5">
+                      <label for="address-address1-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Address 1</label>
+                      
+                      <input type="text" name="address[address1]" id="address-address1-{{ form.id }}" value="{{ form.address1 }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required>
+                    </div>
+          
+                    <div class="mb-5">
+                      <label for="address-address2-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Address 2</label>
+                      
+                      <input type="text" name="address[address2]" id="address-address2-{{ form.id }}" value="{{ form.address2 }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none">
+                    </div>
+          
+                    <div class="mb-5">
+                      <label for="address-city-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">City</label>
+                      
+                      <input type="text" name="address[city]" id="address-city-{{ form.id }}" value="{{ form.city }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required>
+                    </div>
+          
+                    <div class="mb-5">
+                      <label for="address-country-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Country</label>
+                      
+                      <select name="address[country]" id="address-country-{{ form.id }}" value="{{ form.country }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required data-country-selector data-id="{{ form.id }}">
+                        {{ all_country_option_tags }}
+                      </select>
+                    </div>
+          
+                    <div class="mb-5">
+                      <label for="address-province-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Province</label>
+                      
+                      <select name="address[province]" id="address-province-{{ form.id }}" value="{{ form.province }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required []></select>
+                    </div>
+          
+                    <div class="mb-5">
+                      <label for="address-zip-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Postal code</label>
+                      
+                      <input type="text" name="address[zip]" id="address-zip-{{ form.id }}" value="{{ form.zip }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required>
+                    </div>
+          
+                    <div class="mb-4">
+                      <label for="address-phone-{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2 block">Phone number</label>
+                      
+                      <input type="tel" name="address[phone]" id="address-phone-{{ form.id }}" value="{{ form.phone }}" class="w-full text-gray-700 border px-4 py-3 focus:outline-none" required>
+                    </div>
+
+                    <div class="mb-5">
+                      {{ form.set_as_default_checkbox }}
+
+                      <label for="address_default_address_{{ form.id }}" class="uppercase text-gray-700 text-xs font-medium mb-2">Set as default address</label>
+                    </div>
+          
+                    <div class="flex-flex-row gap-2 mb-2">
+                      <button type="submit" class="mb-2 block w-full font-medium text-white bg-gray-900 hover:bg-gray-700 px-4 py-3 rounded-sm">Update</button>
+                      
+                      <button type="reset" class="w-full font-medium text-gray-700 hover:text-gray-400 border border-gray-700 hover:border-gray-400 px-4 py-3 rounded-sm" x-on:click="is_address_{{ address.id }}_modal_visible = false">Cancel</button>
+                    </div>
+                  {% endform %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endpaginate %}
+  </div>
+</div>
+
+<script>
+  class CustomerAddress {
+    constructor() {
+      this.initCustomerAddress();
+      this.initDeleteAddressButtons();
+      this.customerAddressesSelector();
+    }
+
+    initCustomerAddress() {
+      const allAddressesSelector = document.querySelectorAll('select[data-country-selector]');
+
+      if (allAddressesSelector.length < 1) return;
+      
+      allAddressesSelector.forEach(country => {
+        let selectedCountry = this.getSelectedCountry(country);
+
+        if (!selectedCountry) return;
+
+        let provinces = selectedCountry.dataset.provinces;
+        let provinceArr = JSON.parse(provinces);
+        let provinceSelector = document.querySelector(`#address-province-${country.dataset.id}`);
+
+        if (provinceSelector.length < 1) {
+          provinceSelector.setAttribute('disabled', 'disabled');
+        } else {
+          provinceSelector.removeAttribute('disabled');
+        }
+
+        provinceSelector.innerHTML = '';
+
+        let options = '';
+
+        for (let i = 0; i < provinceArr.length; i++) {
+          if (provinceArr[i][0] === provinceSelector.getAttribute('value')) {
+            options += `<option="${provinceArr[i][0]}" selected>${provinceArr[i][0]}</option>`;
+          } else {
+            options += `<option="${provinceArr[i][0]}">${provinceArr[i][0]}</option>`;
+          }
+        }
+
+        provinceSelector.innerHTML = options;
+      });
+    }
+
+    getSelectedCountry(country) {
+      let option, selectedOption;
+
+      for (let i = 0; i < country.options.length; i++) {
+        option = country.options[i];
+
+        if (option.value === country.getAttribute('value')) {
+          selectedOption = option;
+          selectedOption.setAttribute('selected', 'selected');
+
+          break;
+        }
+      }
+
+      return selectedOption;
+    }
+    
+    customerAddressesSelector() {
+      const addressesSelector = document.querySelectorAll('select[data-country-selector]');
+
+      if (addressesSelector.length < 1) return;
+
+      addressesSelector.forEach(country => {
+        country.addEventListener('change', function(e) {
+          let provinces = this.options[this.selectedIndex].dataset.provinces;
+          let provinceArr = JSON.parse(provinces);
+          let provinceSelector = document.querySelector(`#address-province-${this.dataset.id}`);
+
+          if (provinceArr.length < 1) {
+            provinceSelector.setAttribute('disabled', 'disabled');
+          } else {
+            provinceSelector.removeAttribute('disabled');
+          }
+
+          provinceSelector.innerHTML = '';
+
+          let options = '';
+
+          for (let i = 0; i < provinceArr.length; i++) {
+            options += `<option value="${provinceArr[i][0]}">${provinceArr[i][0]}</option>`;
+          }
+
+          provinceSelector.innerHTML = options;
+        });
+      });
+    }
+  
+    initDeleteAddressButtons() {
+      const deleteButtons = document.querySelectorAll('button[data-delete-address]');
+
+      if (deleteButtons.length < 1) return;
+
+      deleteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          let url = this.dataset.url;
+          let confirmation = window.confirm('Do you really wish to delete this address?');
+
+          if (confirmation) {
+            document.querySelector(`form[action="${url}"]`).submit();
+          }
+        });
+      });
+    }
+  }
+
+  const customerAddress = new CustomerAddress();
+</script>
