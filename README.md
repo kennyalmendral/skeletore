@@ -1,6 +1,6 @@
 # Skeletore
 
-A Shopify starter theme that uses Alpine.js and Tailwind CSS.
+A Shopify 2.0 starter theme that uses Alpine.js and Tailwind CSS.
 
 ## Usage
 
