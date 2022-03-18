@@ -10,6 +10,7 @@ https://shopify.dev/apps/tools/cli/installation
 **2. Initialize theme**
 ```sh
 shopify theme init <THEME_NAME> --clone-url https://github.com/kennyalmendral/skeletore
+cd <THEME_NAME>
 ```
 
 **3. Connect theme to Shopify store**
