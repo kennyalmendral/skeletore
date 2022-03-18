@@ -15,6 +15,7 @@ shopify theme init <THEME_NAME> --clone-url https://github.com/kennyalmendral/sk
 **3. Connect theme to Shopify store**
 ```sh
 shopify login --store=<STORE_NAME>.myshopify.com
+shopify theme serve
 ```
 
 **4. Run the following command to install node modules and compile CSS/JS assets**
