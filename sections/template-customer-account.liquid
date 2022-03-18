@@ -14,7 +14,7 @@
               <div class="relative">
                 <div class="w-full min-80 bg-gray-200 rounded-sm overflow-hidden lg:h-80">
                   {% if order.line_items.first.image %}
-                    <img src="{{ order.line_items.first.image | img_url: 'medium' }}" alt="{{ order.line_items.first.image.alt }}" class="w-full h-full object-center object-cover">
+                    <img src="{{ order.line_items.first.image | image_url: width: 216, height: 320 }}" alt="{{ article.image.alt }}" width="216" height="320" alt="{{ order.line_items.first.image.alt }}" class="w-full h-full object-center object-cover" loading="lazy">
                   {% else %}
                     {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-center object-cover' }}
                   {% endif %}

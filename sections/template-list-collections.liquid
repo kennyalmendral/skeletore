@@ -10,12 +10,10 @@
               <a href="{{ collection.url }}">
                 <div class="h-80 overflow-hidden">
                   {% if collection.featured_image != blank %}
-                    {% assign collection_image = collection.featured_image %}
+                    <img class="w-full h-full object-cover transition duration-1000 ease-in-out transform hover:scale-105" src="{{ collection.featured_image | image_url: width: 1024, height: 768 }}" alt="{{ article.image.alt }}" width="1024" height="768" alt="{{ collection.title | escape }}" loading="lazy">
                   {% else %}
-                    {% assign collection_image = collection.products.first.image %}
+                    {{ 'image' | placeholder_svg_tag: 'medium' }}
                   {% endif %}
-
-                  <img class="w-full h-full object-cover transition duration-1000 ease-in-out transform hover:scale-105" src="{{ collection_image | img_url: 'medium' }}" alt="{{ collection.title | escape }}">
                 </div>
               </a>
 

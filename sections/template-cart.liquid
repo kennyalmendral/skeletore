@@ -25,7 +25,7 @@
                 <td class="py-4 px-6 flex flex-col justify-center">
                   <a href="{{ item.url }}">
                     {% if item.image %}
-                      <img src="{{ item | img_url: 'small' }}" alt="{{ item.title | escape }}" class="w-20 h-20 object-cover border">
+                      <img src="{{ item.image | image_url: width: 800, height: 800 }}" alt="{{ article.image.alt }}" width="800" height="800" alt="{{ item.title | escape }}" class="w-20 h-20 object-cover border" loading="lazy">
                     {% else %}
                       {{ 'product-1' | placeholder_svg_tag: 'w-20 h-20 object-cover border' }}
                     {% endif %}
@@ -63,11 +63,11 @@
                   <h3 class="text-xl">Subtotal: {{ cart.total_price | money }}</h3>
                 {% when "update_button" %}
                   <div class="my-2">
-                    <button type="submit" name="update" class="w-full p-3 border border-gray-600 text-gray-600 font-medium hover:bg-gray-600 hover:text-white">Update</button>
+                    <button type="submit" name="update" class="w-full p-3 text-gray-700 hover:text-gray-400 border border-gray-700 hover:border-gray-400 rounded-sm">Update</button>
                   </div>
                 {% when "checkout_button" %}
                   <div class="my-2">
-                    <button type="submit" name="checkout" class="w-full p-3 border border-gray-600 font-medium bg-gray-600 hover:bg-gray-700 hover:border-gray-700 text-white">Checkout</button>
+                    <button type="submit" name="checkout" class="w-full p-3 border border-r-gray-900 font-medium bg-gray-900 hover:bg-gray-700 hover:border-gray-700 text-white rounded-sm">Checkout</button>
                   </div>
                 {% else %}
               {% endcase %}

@@ -1,6 +1,6 @@
 {% case media.media_type %}
   {% when 'image' %}
-    <img src="{{ media | img_url: 'large' }}" alt="{{ media.preview_image.alt }}" class="w-full h-full object-cover">
+    <img src="{{ media | image_url: width: 1024, height: 768 }}" alt="{{ article.image.alt }}" width="1024" height="768" alt="{{ media.preview_image.alt }}" class="w-full h-full object-cover" loading="lazy">
   {% when 'external_video' %}
     {{ media | external_video_tag: class: 'w-full h-80 object-cover' }}
   {% when 'video' %}

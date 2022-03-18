@@ -27,7 +27,7 @@
       {% when 'featured_image' %}
         <div class="max-w-7xl bg-blue-100 rounded-md mx-2 md:mx-auto overflow-hidden my-4" itemprop="image">
           {% if article.image != blank %}
-            <img class="w-full h-80 md:h-96 object-cover object-center" src="{{ article.image | img_url: 'master' }}" alt="{{ article.image.alt }}" />
+            <img class="w-full h-80 md:h-96 object-cover object-center" src="{{ article.image | image_url: width: 1024, height: 768 }}" alt="{{ article.image.alt }}" width="1024" height="768" loading="lazy" />
           {% else %}
             {% assign placeholder_image = 'lifestyle-1' %}
             {{ placeholder_image | placeholder_svg_tag: 'w-full h-80 md:h-96 object-cover object-center p-5' }}
@@ -112,7 +112,7 @@
 
         <div class="px-1 md:flex mb-3">
           <div class="md:w-full px-3">
-            <input type="submit" class="w-full cursor-pointer px-4 py-2 border text-base font-medium text-white bg-gray-900 hover:bg-gray-700" value="Post comment">
+            <input type="submit" class="w-full cursor-pointer px-6 py-4 bg-gray-900 text-white hover:bg-gray-700 rounded-sm" value="Post comment">
           </div>
         </div>
       </div>
@@ -131,7 +131,7 @@
   {% endif %}
   {% if article.image %}
     "image": [
-      {{ article.image | img_url: "medium" | prepend: "https:" | json }}
+      {{ article.image | image_url: "medium" | prepend: "https:" | json }}
     ],
   {% endif %}
   "datePublished": {{ article.published_at | date: format: "default" | json }},

@@ -9,7 +9,7 @@
             <div class="bg-white border shadow-sm rounded-md overflow-hidden">
               {% if article.image %}
                 <a href="{{ article.url }}">
-                  <img class="w-full h-80 object-cover" src="{{ article.image | img_url: 'medium' }}" alt="{{ article.image.alt }}">
+                  <img class="w-full h-80 object-cover" src="{{ article.image | image_url: width: 1024, height: 768 }}" alt="{{ article.image.alt }}" width="1024" height="768" alt="{{ article.image.alt }}" loading="lazy">
                 </a>
               {% else %}
                 {{ 'image' | placeholder_svg_tag: 'w-full h-80 object-cover bg-gray-100' }}
@@ -21,7 +21,7 @@
                 {% if article.excerpt.size > 0 %}
                   <p>{{ article.excerpt | strip_html | truncatewords: 15, '...' }}</p>
                 {% else %}
-                  <p>{{ article.content | strip_html | truncatewords: 15, '...'}}</p>
+                  <p>{{ article.content | strip_html | truncatewords: 15, '...' }}</p>
                 {% endif %}
 
                 <a href="{{ article.url }}" class="font-medium text-blue-600 hover:text-blue-800 mt-4 mb-2 block">{{ section.settings.blog_read_more }}</a>

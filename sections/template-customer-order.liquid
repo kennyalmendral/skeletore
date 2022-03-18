@@ -15,7 +15,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-12 p-4 md:p-12">
           <div class="w-full h-80 min-h-80 bg-gray-200 rounded-md overflow-hidden border">
             {% if line_item.image %}
-              <img src="{{ line_item.image | img_url: 'medium' }}" alt="{{ line_item.image.alt }}" class="w-full h-full object-center object-cover">
+              <img src="{{ line_item.image | image_url: width: 1024, height: 768 }}" alt="{{ article.image.alt }}" width="1024" height="768" alt="{{ line_item.image.alt }}" class="w-full h-full object-center object-cover" loading="lazy">
             {% else %}
               {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-center object-cover' }}
             {% endif %}
@@ -27,17 +27,17 @@
             <table class="table-auto w-full mb-4">
               <tbody>
                 <tr>
-                  <td class="border border-gray-200 px-4 py-2">Price</td>
+                  <td class="border border-gray-200 px-4 py-2 bg-gray-100">Price</td>
                   <td class="border border-gray-200 px-4 py-2">{{ line_item.original_price | money }}</td>
                 </tr>
 
                 <tr>
-                  <td class="border border-gray-200 px-4 py-2">Quantity</td>
+                  <td class="border border-gray-200 px-4 py-2 bg-gray-100">Quantity</td>
                   <td class="border border-gray-200 px-4 py-2">{{ line_item.quantity }}</td>
                 </tr>
 
                 <tr>
-                  <td class="border border-gray-200 px-4 py-2">Final price</td>
+                  <td class="border border-gray-200 px-4 py-2 bg-gray-100">Final price</td>
                   <td class="border border-gray-200 px-4 py-2">{{ line_item.final_line_price | money }}</td>
                 </tr>
               </tbody>
